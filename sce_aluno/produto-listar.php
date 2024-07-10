@@ -13,12 +13,39 @@
         </thead>
         <tbody>
             <?php
+
+                $conexao = mysqli_connect("localhost","root","ifsuldeminas","scif");
+                if ($conexao){
+                    echo "Conexão bem sucedida!</br>";
+                    $resultado =mysqli_query($conexao,"SELECT * FROM produto" );
+                    if($resultado){
+                        $fields = mysqli_fetch_fields($resultado);
+                        $contador = mysqli_num_rows($resultado);
+
+                        print("Total de linhas resultantes: $contador </br>");
+                        while($linha=mysqli_fetch_assoc($resultado)){
+                        print($linha['nome']."</br>");
+                        }
+
+                        //echo '<pre>';
+                        //print_r($fields);
+                        //echo '</pre>';  
+
+                    }
+                }   else{
+                    echo"Ocorreu um erro: " + mysqli_connect_error();
+                }
+
+
                 $array = [
                     ["nome" => "Joao",
                     "valor" => "12.45"],
                     
                     ["nome" => "Lênio",
                     "valor" => "44.66"],
+
+                    ["nome" => "Maria",
+                    "valor" => "1.90"],
                 ];
 
                 for ($i=0; $i < count($array); $i++) { 
